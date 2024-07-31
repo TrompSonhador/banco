@@ -7,13 +7,15 @@
 
 #define MAX 60
 
-struct transacao {
+struct transacao
+{
     char tipo[MAX];
     float valor;
     char data_hora[MAX];
 };
 
-struct usuario {
+struct usuario
+{
     char nome[MAX];
     int idade;
     char email[MAX];
@@ -31,7 +33,8 @@ int s;
 int numUsuarios = 0;
 usuario *cip = NULL;
 
-void registrar_transacao(usuario *u, const char *tipo, float valor) {
+void registrar_transacao(usuario *u, const char *tipo, float valor)
+{
 
     time_t now;
     struct tm *tm_info;
@@ -50,18 +53,19 @@ void registrar_transacao(usuario *u, const char *tipo, float valor) {
     u->numTransacoes++;
 }
 
-
-void exibir_historico(usuario *u) {
+void exibir_historico(usuario *u)
+{
     printf("Histórico de Transações:\n");
-    for (int i = 0; i < u->numTransacoes; i++) {
+    for (int i = 0; i < u->numTransacoes; i++)
+    {
         printf("Tipo: %s | Valor: %.2f | Data e Hora: %s\n",
                u->historico[i].tipo, u->historico[i].valor, u->historico[i].data_hora);
     }
     printf("\n");
 }
 
-
-void mudar_dados(usuario *cip) {
+void mudar_dados(usuario *cip)
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
     char escolha[MAX];
     char sucesso[MAX];
@@ -74,29 +78,34 @@ void mudar_dados(usuario *cip) {
     scanf(" %59[^\n]", escolha);
     printf("\n");
 
-    if (strcmp(escolha, "nome") == 0) {
+    if (strcmp(escolha, "nome") == 0)
+    {
         char novo_nome[MAX];
 
-        do{
-        repeticao = 0;
+        do
+        {
+            repeticao = 0;
 
-        printf("Digite o novo nome do usuário: ");
-        scanf(" %59[^\n]", novo_nome);
+            printf("Digite o novo nome do usuário: ");
+            scanf(" %59[^\n]", novo_nome);
 
-        for(int i=0; i<numUsuarios; i++){
-            if(strcmp(novo_nome, cip[i].nome) == 0){
-                printf("\n");
-                printf("Este nome já existe em ou outro usuário\n");
-                repeticao = 1;
-                break;
+            for (int i = 0; i < numUsuarios; i++)
+            {
+                if (strcmp(novo_nome, cip[i].nome) == 0)
+                {
+                    printf("\n");
+                    printf("Este nome já existe em ou outro usuário\n");
+                    repeticao = 1;
+                    break;
+                }
             }
-        }
-        }while(repeticao == 1);
+        } while (repeticao == 1);
 
         printf("Coloque sua senha\n");
         scanf(" %59[^\n]", senha);
 
-        while(strcmp(senha, cip->senha) != 0){
+        while (strcmp(senha, cip->senha) != 0)
+        {
             printf("Senha incorreta\n");
             printf("Coloque sua senha\n");
             scanf(" %59[^\n]", senha);
@@ -104,24 +113,27 @@ void mudar_dados(usuario *cip) {
 
         strcpy(cip->nome, novo_nome);
         puts(sucesso);
-
-    } else if (strcmp(escolha, "idade") == 0) {
+    }
+    else if (strcmp(escolha, "idade") == 0)
+    {
         int nova_idade;
 
         printf("Digite a idade do usuário: ");
         scanf("%d", &nova_idade);
 
-        while(nova_idade < 18){
+        while (nova_idade < 18)
+        {
             printf("\n");
             printf("Esta conta é para maiores de 18 anos\n");
             printf("Digite a idade do usuário: ");
             scanf("%d", &nova_idade);
-       }
+        }
 
-       printf("Coloque sua senha\n");
-       scanf(" %59[^\n]", senha);
+        printf("Coloque sua senha\n");
+        scanf(" %59[^\n]", senha);
 
-        while(strcmp(senha, cip->senha) != 0){
+        while (strcmp(senha, cip->senha) != 0)
+        {
             printf("Senha incorreta\n");
             printf("Coloque sua senha\n");
             scanf(" %59[^\n]", senha);
@@ -129,101 +141,118 @@ void mudar_dados(usuario *cip) {
 
         cip->idade = nova_idade;
         puts(sucesso);
-
-    } else if (strcmp(escolha, "email") == 0) {
+    }
+    else if (strcmp(escolha, "email") == 0)
+    {
         char novo_email[MAX];
 
-        bool gmail_com(){
+        bool gmail_com();
+        {
             return strstr(novo_email, "@gmail.com") == NULL;
         }
 
-        bool yahoo_com(){
+        bool yahoo_com();
+        {
             return strstr(novo_email, "@yahoo.com") == NULL;
         }
 
-        bool outlook_com(){
+        bool outlook_com();
+        {
             return strstr(novo_email, "@outlook.com") == NULL;
         }
 
-        bool hotmail_com(){
+        bool hotmail_com();
+        {
             return strstr(novo_email, "@hotmail.com") == NULL;
         }
 
-        bool iCloud_com(){
+        bool iCloud_com();
+        {
             return strstr(novo_email, "@icloud.com") == NULL;
         }
 
-
-        do{
+        do
+        {
             repeticao = 0;
 
             printf("Digite o email do usuário: ");
             scanf(" %59[^\n]", novo_email);
 
-            while(gmail_com() && yahoo_com() && outlook_com() && hotmail_com() && iCloud_com()){
+            while (gmail_com() && yahoo_com() && outlook_com() && hotmail_com() && iCloud_com())
+            {
                 printf("Email inválido\n");
                 printf("Digite o email do usuário: ");
                 scanf(" %59[^\n]", novo_email);
             }
 
-            for(int i=0; i<numUsuarios; i++){
-                if(strcmp(novo_email, cip[i].email) == 0){
+            for (int i = 0; i < numUsuarios; i++)
+            {
+                if (strcmp(novo_email, cip[i].email) == 0)
+                {
                     printf("Este email já está inserido em uma outra conta\n");
                     repeticao = 1;
                     break;
                 }
             }
-        }while(repeticao == 1);
+        } while (repeticao == 1);
 
         printf("Coloque sua senha\n");
         scanf(" %59[^\n]", senha);
 
-        while(strcmp(senha, cip->senha) != 0){
+        while (strcmp(senha, cip->senha) != 0)
+        {
             printf("Senha incorreta\n");
             printf("Coloque sua senha\n");
             scanf(" %59[^\n]", senha);
         }
         strcpy(cip->email, novo_email);
         puts(sucesso);
-
-    } else if (strcmp(escolha, "cpf") == 0) {
+    }
+    else if (strcmp(escolha, "cpf") == 0)
+    {
         char novo_cpf[MAX];
 
-        do{
-        repeticao = 0;
+        do
+        {
+            repeticao = 0;
 
-        printf("Digite o CPF do usuário: ");
-        scanf(" %59[^\n]", novo_cpf);
-
-        while(strlen(novo_cpf) != 11){
-            printf("\n");
-            printf("CPF inválido\n");
             printf("Digite o CPF do usuário: ");
             scanf(" %59[^\n]", novo_cpf);
-        }
 
-        for(int i=0; i<numUsuarios; i++){
-            if(strcmp(novo_cpf, cip[i].cpf) == 0){
+            while (strlen(novo_cpf) != 11)
+            {
                 printf("\n");
-                printf("Este CPF já está inserido em uma outra conta\n");
-                repeticao = 1;
-                break;
+                printf("CPF inválido\n");
+                printf("Digite o CPF do usuário: ");
+                scanf(" %59[^\n]", novo_cpf);
             }
-        }
-    }while(repeticao == 1);
+
+            for (int i = 0; i < numUsuarios; i++)
+            {
+                if (strcmp(novo_cpf, cip[i].cpf) == 0)
+                {
+                    printf("\n");
+                    printf("Este CPF já está inserido em uma outra conta\n");
+                    repeticao = 1;
+                    break;
+                }
+            }
+        } while (repeticao == 1);
 
         printf("Coloque sua senha\n");
         scanf(" %59[^\n]", senha);
 
-        while(strcmp(senha, cip->senha) != 0){
+        while (strcmp(senha, cip->senha) != 0)
+        {
             printf("Senha incorreta\n");
             printf("Coloque sua senha\n");
             scanf(" %59[^\n]", senha);
         }
         strcpy(cip->cpf, novo_cpf);
         puts(sucesso);
-
-    } else if (strcmp(escolha, "senha") == 0) {
+    }
+    else if (strcmp(escolha, "senha") == 0)
+    {
         char nova_senha[MAX];
         printf("Digite a nova senha\n");
         scanf(" %59[^\n]", nova_senha);
@@ -231,21 +260,23 @@ void mudar_dados(usuario *cip) {
         printf("Coloque sua senha atual\n");
         scanf(" %59[^\n]", senha);
 
-        while(strcmp(senha, cip->senha) != 0){
+        while (strcmp(senha, cip->senha) != 0)
+        {
             printf("Senha incorreta\n");
             printf("Coloque sua senha atual\n");
             scanf(" %59[^\n]", senha);
         }
         strcpy(cip->senha, nova_senha);
         puts(sucesso);
-
-    } else {
+    }
+    else
+    {
         printf("Opção não disponível\n");
     }
 }
 
-
-void consultar_dados(usuario *cip) {
+void consultar_dados(usuario *cip)
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
     printf("Nome: %s\n", cip->nome);
     printf("Idade: %d\n", cip->idade);
@@ -255,36 +286,40 @@ void consultar_dados(usuario *cip) {
 
     char modificar[MAX];
 
-    do{
-    printf("Você quer modificar algum dado? Digite sim ou nao\n");
-    scanf(" %59[^\n]", modificar);
-    printf("\n");
-
-    while(strcmp(modificar, "sim") != 0 &&  strcmp(modificar, "nao") != 0){
-        printf("Opção não disponível\nDigite sim ou nao\n");
+    do
+    {
+        printf("Você quer modificar algum dado? Digite sim ou nao\n");
         scanf(" %59[^\n]", modificar);
-        printf("\n");}
+        printf("\n");
 
-    if (strcmp(modificar, "sim") == 0) {
-        mudar_dados(cip);
-    }
+        while (strcmp(modificar, "sim") != 0 && strcmp(modificar, "nao") != 0)
+        {
+            printf("Opção não disponível\nDigite sim ou nao\n");
+            scanf(" %59[^\n]", modificar);
+            printf("\n");
+        }
 
-    else if (strcmp(modificar, "nao") == 0){
-        return;
-    }
+        if (strcmp(modificar, "sim") == 0)
+        {
+            mudar_dados(cip);
+        }
 
-   }while(strcmp(modificar, "sim") == 0);
+        else if (strcmp(modificar, "nao") == 0)
+        {
+            return;
+        }
 
+    } while (strcmp(modificar, "sim") == 0);
 }
 
-
-void consultar_saldo(usuario *cip){
+void consultar_saldo(usuario *cip)
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
     printf("Seu saldo é %.2f\n\n", cip->saldo);
 }
 
-
-void emprestimo(usuario *cip){
+void emprestimo(usuario *cip)
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
 
     float valor;
@@ -297,12 +332,12 @@ void emprestimo(usuario *cip){
     scanf(" %59[^\n]", senha);
     printf("\n");
 
-    while(strcmp(senha, cip->senha) != 0){
+    while (strcmp(senha, cip->senha) != 0)
+    {
         printf("Senha incorreta\n");
         printf("Digite sua senha\n");
         scanf(" %59[^\n]", senha);
         printf("\n");
-
     }
 
     cip->saldo += valor;
@@ -310,58 +345,65 @@ void emprestimo(usuario *cip){
     registrar_transacao(cip, "Empréstimo", valor);
 }
 
+void transferencia(usuario *cip)
+{
+    setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
 
-void transferencia(usuario *cip){
-     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
-
-     if(numUsuarios <= 1){
+    if (numUsuarios <= 1)
+    {
         printf("Opção não disponível, pois há a necessidade de 2 usuários ou mais\n");
         return;
-     }
-     else{
+    }
+    else
+    {
         char email[MAX];
         printf("Digite o email do usuário que ira receber:\n");
         scanf(" %59[^\n]", email);
         printf("\n");
 
-        for (int i = 0; i < numUsuarios; i++) {
-        if (strcmp(email, cip[i].email) == 0) {
+        for (int i = 0; i < numUsuarios; i++)
+        {
+            if (strcmp(email, cip[i].email) == 0)
+            {
 
-            float valor_transfe;
-            printf("Digite o valor que será transferido\n");
-            scanf("%f", &valor_transfe);
+                float valor_transfe;
+                printf("Digite o valor que será transferido\n");
+                scanf("%f", &valor_transfe);
 
-            while(valor_transfe > cip->saldo){
-                 printf("O valor ultrapassa o saldo\nDigite um valor inferior ou igual ao saldo\n");
-                 scanf("%f", &valor_transfe);
-            }
+                while (valor_transfe > cip->saldo)
+                {
+                    printf("O valor ultrapassa o saldo\nDigite um valor inferior ou igual ao saldo\n");
+                    scanf("%f", &valor_transfe);
+                }
 
-            char senha[MAX];
-            printf("Digite sua senha: ");
-            scanf(" %59[^\n]", senha);
-
-            while (strcmp(senha, cip->senha) != 0) {
-                printf("Senha incorreta. Digite novamente: ");
+                char senha[MAX];
+                printf("Digite sua senha: ");
                 scanf(" %59[^\n]", senha);
+
+                while (strcmp(senha, cip->senha) != 0)
+                {
+                    printf("Senha incorreta. Digite novamente: ");
+                    scanf(" %59[^\n]", senha);
+                }
+                printf("Transferência feita com sucesso\n");
+                cip[i].saldo += valor_transfe;
+                cip->saldo -= valor_transfe;
+                registrar_transacao(cip, "Transferência", valor_transfe);
+                registrar_transacao(&cip[i], "Recebimento de transferência", valor_transfe);
+                return;
             }
-            printf("Transferência feita com sucesso\n");
-            cip[i].saldo += valor_transfe;
-            cip->saldo -= valor_transfe;
-            registrar_transacao(cip, "Transferência", valor_transfe);
-            registrar_transacao(&cip[i], "Recebimento de transferência", valor_transfe);
-            return;
         }
-    }
-    printf("Nenhum usuário encontrado com o email \"%s\".\n", email);
+        printf("Nenhum usuário encontrado com o email \"%s\".\n", email);
     }
 }
 
-
-void app(usuario *cip) {
+void app(usuario *cip)
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
     int i;
 
-    do {
+    do
+    {
         printf("Digite o número de acordo com as opções que você quer\n\n");
         printf("1 - Consultar dados do usuário\n");
         printf("2 - Consultar saldo\n");
@@ -372,46 +414,48 @@ void app(usuario *cip) {
         scanf("%d", &i);
         printf("\n");
 
-        switch (i) {
+        switch (i)
+        {
 
-            case 1:
-                consultar_dados(cip);
-                break;
+        case 1:
+            consultar_dados(cip);
+            break;
 
-            case 2:
-                consultar_saldo(cip);
-                break;
+        case 2:
+            consultar_saldo(cip);
+            break;
 
-            case 3:
-                emprestimo(cip);
-                break;
+        case 3:
+            emprestimo(cip);
+            break;
 
-            case 4:
-                transferencia(cip);
-                break;
+        case 4:
+            transferencia(cip);
+            break;
 
-            case 5:
-                exibir_historico(cip);
-                break;
+        case 5:
+            exibir_historico(cip);
+            break;
 
-            case 6:
-                return;
-                break;
+        case 6:
+            return;
+            break;
 
-            default:
-                printf("Opção não disponível\n");
+        default:
+            printf("Opção não disponível\n");
         }
     } while (i != 6);
 }
 
-
-void cadastro() {
+void cadastro()
+{
     numUsuarios++;
 
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
     cip = realloc(cip, numUsuarios * sizeof(usuario));
 
-    if (cip == NULL) {
+    if (cip == NULL)
+    {
         printf("Erro ao alocar memória.\n");
         return;
     }
@@ -419,21 +463,24 @@ void cadastro() {
     char novo_nome[MAX];
     int repeticao;
 
-    do{
+    do
+    {
         repeticao = 0;
 
         printf("Digite o nome do usuário: ");
         scanf(" %59[^\n]", novo_nome);
 
-        for(int i=0; i<numUsuarios; i++){
-            if(strcmp(novo_nome, cip[i].nome) == 0){
+        for (int i = 0; i < numUsuarios; i++)
+        {
+            if (strcmp(novo_nome, cip[i].nome) == 0)
+            {
                 printf("\n");
                 printf("Este nome já existe\n");
                 repeticao = 1;
                 break;
             }
         }
-    }while(repeticao == 1);
+    } while (repeticao == 1);
     strcpy(cip[numUsuarios - 1].nome, novo_nome);
 
     int nova_idade;
@@ -441,7 +488,8 @@ void cadastro() {
     printf("Digite a idade do usuário: ");
     scanf("%d", &nova_idade);
 
-    while(nova_idade < 18){
+    while (nova_idade < 18)
+    {
         printf("\n");
         printf("Esta conta é para maiores de 18 anos\n");
         printf("Digite a idade do usuário: ");
@@ -451,74 +499,85 @@ void cadastro() {
 
     char novo_email[MAX];
 
-
-    bool gmail_com(){
+    bool gmail_com();
+    {
         return strstr(novo_email, "@gmail.com") == NULL;
     }
 
-    bool yahoo_com(){
+    bool yahoo_com();
+    {
         return strstr(novo_email, "@yahoo.com") == NULL;
     }
 
-    bool outlook_com(){
+    bool outlook_com();
+    {
         return strstr(novo_email, "@outlook.com") == NULL;
     }
 
-    bool hotmail_com(){
+    bool hotmail_com();
+    {
         return strstr(novo_email, "@hotmail.com") == NULL;
     }
 
-    bool iCloud_com(){
+    bool iCloud_com();
+    {
         return strstr(novo_email, "@icloud.com") == NULL;
     }
 
-
-    do{
+    do
+    {
         repeticao = 0;
 
         printf("Digite o email do usuário: ");
         scanf(" %59[^\n]", novo_email);
 
-        while(gmail_com() && yahoo_com() && outlook_com() && hotmail_com() && iCloud_com()){
+        while (gmail_com() && yahoo_com() && outlook_com() && hotmail_com() && iCloud_com())
+        {
             printf("Email inválido\n");
             printf("Digite o email do usuário: ");
             scanf(" %59[^\n]", novo_email);
         }
 
-        for(int i=0; i<numUsuarios; i++){
-            if(strcmp(novo_email, cip[i].email) == 0){
+        for (int i = 0; i < numUsuarios; i++)
+        {
+            if (strcmp(novo_email, cip[i].email) == 0)
+            {
                 printf("Este email já está inserido em uma outra conta\n");
                 repeticao = 1;
                 break;
             }
         }
-    }while(repeticao == 1);
+    } while (repeticao == 1);
     strcpy(cip[numUsuarios - 1].email, novo_email);
 
     char novo_cpf[MAX];
 
-    do{
+    do
+    {
         repeticao = 0;
 
         printf("Digite o CPF do usuário: ");
         scanf(" %59[^\n]", novo_cpf);
 
-        while(strlen(novo_cpf) != 11){
+        while (strlen(novo_cpf) != 11)
+        {
             printf("\n");
             printf("CPF inválido\n");
             printf("Digite o CPF do usuário: ");
             scanf(" %59[^\n]", novo_cpf);
         }
 
-        for(int i=0; i<numUsuarios; i++){
-            if(strcmp(novo_cpf, cip[i].cpf) == 0){
+        for (int i = 0; i < numUsuarios; i++)
+        {
+            if (strcmp(novo_cpf, cip[i].cpf) == 0)
+            {
                 printf("\n");
                 printf("Este CPF já está inserido em uma outra conta\n");
                 repeticao = 1;
                 break;
             }
         }
-    }while(repeticao == 1);
+    } while (repeticao == 1);
     strcpy(cip[numUsuarios - 1].cpf, novo_cpf);
 
     char nova_senha[MAX];
@@ -526,12 +585,13 @@ void cadastro() {
     printf("Crie sua senha inicial com 4 digitos: ");
     scanf(" %59[^\n]", nova_senha);
 
-    while(strlen(nova_senha) != 4){
+    while (strlen(nova_senha) != 4)
+    {
         printf("Senha inválida\n");
         printf("Crie sua senha inicial com 4 digitos: ");
         scanf(" %59[^\n]", nova_senha);
         printf("\n");
-        }
+    }
     strcpy(cip[numUsuarios - 1].senha, nova_senha);
 
     printf("\n");
@@ -539,11 +599,12 @@ void cadastro() {
     printf("Usuário criado com sucesso\n\n");
 }
 
-
-void login() {
+void login()
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
 
-    if (numUsuarios == 0) {
+    if (numUsuarios == 0)
+    {
         printf("Não há usuários cadastrados.\n");
         return;
     }
@@ -553,13 +614,16 @@ void login() {
     scanf(" %59[^\n]", email);
     printf("\n");
 
-    for (int i = 0; i < numUsuarios; i++) {
-        if (strcmp(email, cip[i].email) == 0) {
+    for (int i = 0; i < numUsuarios; i++)
+    {
+        if (strcmp(email, cip[i].email) == 0)
+        {
             char senha[MAX];
             printf("Digite sua senha: ");
             scanf(" %59[^\n]", senha);
 
-            while (strcmp(senha, cip[i].senha) != 0) {
+            while (strcmp(senha, cip[i].senha) != 0)
+            {
                 printf("Senha incorreta. Digite novamente: ");
                 scanf(" %59[^\n]", senha);
             }
@@ -573,34 +637,34 @@ void login() {
     printf("Nenhum usuário encontrado com o email \"%s\".\n", email);
 }
 
-
-
-int main() {
+int main()
+{
     setlocale(LC_ALL, "Portuguese_Brazil.UTF-8");
 
     printf("Bem-vindo ao Banco Panamericano\n\n");
 
-    do {
+    do
+    {
         printf("Digite 1 para cadastrar\n");
         printf("Digite 2 para fazer login\n");
         printf("Digite 3 para fechar o aplicativo\n");
 
-
         scanf("%d", &s);
         printf("\n");
 
-        switch (s) {
-            case 1:
-                cadastro();
-                break;
-            case 2:
-                login();
-                break;
-            case 3:
-                printf("Fechando o aplicativo\n");
-                break;
-            default:
-                printf("Opção inválida. Por favor, tente novamente.\n");
+        switch (s)
+        {
+        case 1:
+            cadastro();
+            break;
+        case 2:
+            login();
+            break;
+        case 3:
+            printf("Fechando o aplicativo\n");
+            break;
+        default:
+            printf("Opção inválida. Por favor, tente novamente.\n");
         }
     } while (s != 3);
 
